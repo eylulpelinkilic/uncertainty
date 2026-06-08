@@ -33,7 +33,7 @@ G1, G2 = 1, 2
 
 # --- Load raw data ---
 print("Loading data...")
-df = pd.read_excel("NEW_Miyokardit_08.12.2025.xlsx", sheet_name=0)
+df = pd.read_excel("Miyokardit_08.12.xlsx", sheet_name=0)
 df = df.dropna(subset=[LABEL_COL])
 
 # --- Extract training split using label-based indexing (.loc) ---
@@ -51,10 +51,13 @@ print(f"Features: {len(final_features)}")
 # --- Transform through fitted UncertaintyTransformer ---
 print("Transforming through UncertaintyTransformer...")
 X_unc = model.named_steps["uncertainty"].transform(X_train)
+unc_feature_names = list(model.named_steps["uncertainty"].feature_names_in_)
+X_unc_df = pd.DataFrame(X_unc, columns=unc_feature_names)
 
-# --- Scale with fresh StandardScaler (matches notebook: StandardScaler().fit_transform) ---
+# --- Scale with fresh StandardScaler (fit on DataFrame so feature_names_in_ is set) ---
 print("Scaling with fresh StandardScaler...")
-X_std = StandardScaler().fit_transform(X_unc)
+tsne_scaler = StandardScaler()
+X_std = tsne_scaler.fit_transform(X_unc_df)
 
 # --- Run t-SNE with exact same parameters as NEW_uncertainty.ipynb ---
 print("Running t-SNE (this may take a minute)...")
@@ -63,11 +66,16 @@ tsne = TSNE(n_components=2, perplexity=50, learning_rate="auto",
 X_emb = tsne.fit_transform(X_std)
 print("t-SNE done.")
 
-# --- Save embedding ---
+# --- Save embedding and scaler ---
 os.makedirs("app_artifacts", exist_ok=True)
 out_path = os.path.join("app_artifacts", "embedding_data.npz")
 np.savez(out_path, X_std=X_std, X_emb=X_emb, y=y_train)
 print(f"Saved embedding to {out_path}")
+
+scaler_path = os.path.join("app_artifacts", "tsne_scaler.pkl")
+with open(scaler_path, "wb") as f:
+    pickle.dump(tsne_scaler, f)
+print(f"Saved tsne_scaler to {scaler_path}")
 
 # --- Generate diagnostic landscape PNG (exact notebook logic) ---
 print("Generating diagnostic landscape PNG...")

@@ -16,4 +16,11 @@ Thumbs.db
 # Environment files
 .env
 venv/
+.venv/
 *.env
+
+# IDE
+.idea/
+
+# Claude session files
+.claude/
