@@ -336,17 +336,27 @@ def _compute_landscape_layers():
 @st.cache_data
 def render_landscape_with_patient(star_x, star_y, legend_g1, legend_g2, legend_new):
     """
-    Renders the KDE diagnostic landscape + new-patient star in one matplotlib figure.
-    Identical coordinate system to the notebook (origin='lower', same extents).
+    Loads the pre-rendered diagnostic_landscape.png and overlays the patient star.
     Returns PNG bytes for st.image().
     """
-    red_img, blue_img, over_img, xmin, xmax, ymin, ymax = _compute_landscape_layers()
+    _raw = np.load(EMBEDDING_PATH)
+    X_emb = np.array(_raw['X_emb'])
+    _raw.close()
 
-    fig, ax = plt.subplots(figsize=(7, 6.5))
+    pad = 2.0
+    xmin = float(X_emb[:, 0].min()) - pad
+    xmax = float(X_emb[:, 0].max()) + pad
+    ymin = float(X_emb[:, 1].min()) - pad
+    ymax = float(X_emb[:, 1].max()) + pad
 
-    for layer in [over_img, red_img, blue_img]:
-        ax.imshow(layer, extent=(xmin, xmax, ymin, ymax),
-                  origin="lower", interpolation="bilinear")
+    bg = plt.imread(LANDSCAPE_PATH)
+    h, w = bg.shape[:2]
+    figw, figh = 7, 7 * (h / w)
+
+    fig, ax = plt.subplots(figsize=(figw, figh))
+    # origin='upper': row 0 of the PNG (top of image) maps to ymax — correct for
+    # a PNG saved with origin='lower' matplotlib axes (matplotlib flips on save).
+    ax.imshow(bg, extent=(xmin, xmax, ymin, ymax), origin='upper', aspect='auto')
 
     ax.scatter([star_x], [star_y], marker='*', s=500, c='limegreen',
                edgecolors='darkgreen', linewidths=1.5, zorder=5)
@@ -840,19 +850,17 @@ if artifacts is not None:
                         new_coords_xy[0], new_coords_xy[1], 1,
                         T("legend_g1"), T("legend_new")
                     )
-                    st.image(landscape_img, use_container_width=True)
                 elif _view_sel == T("view_acs"):
                     landscape_img = render_landscape_filtered(
                         new_coords_xy[0], new_coords_xy[1], 2,
                         T("legend_g2"), T("legend_new")
                     )
-                    st.image(landscape_img, use_container_width=True)
                 else:
-                    fig = plot_diagnostic_landscape(
-                        embedding_data['X_emb'], embedding_data['y'], lang,
-                        new_patient_coords=new_coords_xy
+                    landscape_img = render_landscape_with_patient(
+                        new_coords_xy[0], new_coords_xy[1],
+                        T("legend_g1"), T("legend_g2"), T("legend_new")
                     )
-                    st.plotly_chart(fig, use_container_width=True)
+                st.image(landscape_img, use_container_width=True)
 
             with top_col2:
                 try:
