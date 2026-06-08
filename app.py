@@ -840,17 +840,19 @@ if artifacts is not None:
                         new_coords_xy[0], new_coords_xy[1], 1,
                         T("legend_g1"), T("legend_new")
                     )
+                    st.image(landscape_img, use_container_width=True)
                 elif _view_sel == T("view_acs"):
                     landscape_img = render_landscape_filtered(
                         new_coords_xy[0], new_coords_xy[1], 2,
                         T("legend_g2"), T("legend_new")
                     )
+                    st.image(landscape_img, use_container_width=True)
                 else:
-                    landscape_img = render_landscape_with_patient(
-                        new_coords_xy[0], new_coords_xy[1],
-                        T("legend_g1"), T("legend_g2"), T("legend_new")
+                    fig = plot_diagnostic_landscape(
+                        embedding_data['X_emb'], embedding_data['y'], lang,
+                        new_patient_coords=new_coords_xy
                     )
-                st.image(landscape_img, use_container_width=True)
+                    st.plotly_chart(fig, use_container_width=True)
 
             with top_col2:
                 try:
