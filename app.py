@@ -336,27 +336,17 @@ def _compute_landscape_layers():
 @st.cache_data
 def render_landscape_with_patient(star_x, star_y, legend_g1, legend_g2, legend_new):
     """
-    Loads the pre-rendered diagnostic_landscape.png and overlays the patient star.
+    Renders the KDE diagnostic landscape + new-patient star in one matplotlib figure.
+    Identical coordinate system to the notebook (origin='lower', same extents).
     Returns PNG bytes for st.image().
     """
-    _raw = np.load(EMBEDDING_PATH)
-    X_emb = np.array(_raw['X_emb'])
-    _raw.close()
+    red_img, blue_img, over_img, xmin, xmax, ymin, ymax = _compute_landscape_layers()
 
-    pad = 2.0
-    xmin = float(X_emb[:, 0].min()) - pad
-    xmax = float(X_emb[:, 0].max()) + pad
-    ymin = float(X_emb[:, 1].min()) - pad
-    ymax = float(X_emb[:, 1].max()) + pad
+    fig, ax = plt.subplots(figsize=(7, 6.5))
 
-    bg = plt.imread(LANDSCAPE_PATH)
-    h, w = bg.shape[:2]
-    figw, figh = 7, 7 * (h / w)
-
-    fig, ax = plt.subplots(figsize=(figw, figh))
-    # origin='upper': row 0 of the PNG (top of image) maps to ymax — correct for
-    # a PNG saved with origin='lower' matplotlib axes (matplotlib flips on save).
-    ax.imshow(bg, extent=(xmin, xmax, ymin, ymax), origin='upper', aspect='auto')
+    for layer in [over_img, red_img, blue_img]:
+        ax.imshow(layer, extent=(xmin, xmax, ymin, ymax),
+                  origin="lower", interpolation="bilinear")
 
     ax.scatter([star_x], [star_y], marker='*', s=500, c='limegreen',
                edgecolors='darkgreen', linewidths=1.5, zorder=5)
