@@ -1,0 +1,9 @@
+scenario,family,tau_bits,affected_features,affected_count,effective_denominator_perturbation,exploratory,any_exact_raw_score_change,any_raw_score_change_within_tolerance,any_top_five_membership_change,any_displayed_order_change,any_full_order_change
+p01,original_exploratory,1e-12,,0,False,True,False,False,False,False,False
+p05,original_exploratory,0.0033597517211004123,Radiation | Fatigue | Çarpıntı,3,True,True,True,True,False,False,True
+p10,original_exploratory,0.00635819367814629,Radiation | Fatigue | Çarpıntı,3,True,True,True,True,False,False,True
+supp_p01,supplementary_unfloored_nonconstant,0.004276922202079152,Radiation | Fatigue | Çarpıntı,3,True,True,True,True,False,False,True
+supp_p05,supplementary_unfloored_nonconstant,0.00635819367814629,Radiation | Fatigue | Çarpıntı,3,True,True,True,True,False,False,True
+supp_p10,supplementary_unfloored_nonconstant,0.010293915507774379,KBY | KOAH | Radiation | Back Pain | Epigastric Pain | Fatigue | Çarpıntı,7,True,True,True,True,False,True,True
+supp_p20,supplementary_unfloored_nonconstant,0.01954493722940956,SEX | HL | FH | KBY | KOAH | Radiation | Arm Pain | Back Pain | Epigastric Pain | Fatigue | Çarpıntı,11,True,True,True,True,True,True,True
+supp_p25,supplementary_unfloored_nonconstant,0.02071488082849471,SEX | HL | FH | KBY | KOAH | Radiation | Arm Pain | Back Pain | Epigastric Pain | Fatigue | Çarpıntı,11,True,True,True,True,True,True,True

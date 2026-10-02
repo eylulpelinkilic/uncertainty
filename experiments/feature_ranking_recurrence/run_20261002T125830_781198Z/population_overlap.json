@@ -1,0 +1,17 @@
+{
+  "reference_is_subset_of_complete_cohort": true,
+  "reference_in_complete_cohort": 128,
+  "complete_cohort_not_reference": 32,
+  "demonstration_in_reference": 7,
+  "demonstration_in_complete_cohort": 10,
+  "demonstration_reference_row_ids": [
+    5,
+    7,
+    9,
+    12,
+    86,
+    87,
+    92
+  ],
+  "note": "Overlapping populations are descriptive analyses, not independent samples. Demo measurements rounded relative to workbook."
+}

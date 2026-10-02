@@ -1,0 +1,8 @@
+{
+  "scores_match": true,
+  "rank_rows": 66372,
+  "full_rank_rows_different": 0,
+  "previous_recorded_package_versions_match": true,
+  "maximum_correlation_difference": 8.326672684688674e-17,
+  "note": "App-order replay agreement validates the current saved run, not historical clinician sessions. Quicksort ordering is environment-dependent."
+}

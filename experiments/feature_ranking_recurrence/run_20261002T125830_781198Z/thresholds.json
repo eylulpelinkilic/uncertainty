@@ -1,0 +1,20 @@
+{
+  "primary": "p05",
+  "thresholds": {
+    "p01": 1e-12,
+    "p05": 0.0033597517211004123,
+    "p10": 0.00635819367814629
+  },
+  "units": "bits (log2)",
+  "method": "numpy.percentile(method=linear) over strictly positive stored reference DJS, including original EPS floor",
+  "positive_features": 44,
+  "original_floor": 1e-12,
+  "zero_features": 0,
+  "exploratory": true,
+  "source": null,
+  "affected": {
+    "p01": 0,
+    "p05": 3,
+    "p10": 3
+  }
+}

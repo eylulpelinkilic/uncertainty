@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "feature_statistics_checked": 4752,
+  "stable_patient_orders_checked": 5364,
+  "correlations_checked": 216,
+  "patient_change_rows_checked": 9536,
+  "independent_methods": "NumPy lexsort for stable order; direct appearance statistics; rankdata plus Pearson for Spearman; linear percentile interpolation; explicit denominator factors",
+  "previous_scores_replayed": true,
+  "independent_standardization_all_caps": "passed",
+  "brute_force_neighbor_distance_check": "passed",
+  "threshold_definitions_unchanged_during_calculation": true
+}

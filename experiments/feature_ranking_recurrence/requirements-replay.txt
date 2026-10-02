@@ -1,0 +1,7 @@
+# Six exact versions recorded in the original experiment provenance.
+numpy==2.5.3
+pandas==3.0.6
+scipy==1.18.1
+scikit-learn==1.6.1
+matplotlib==3.11.2
+openpyxl==3.1.5

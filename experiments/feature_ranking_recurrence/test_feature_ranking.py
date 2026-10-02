@@ -8,6 +8,44 @@ from sklearn.preprocessing import StandardScaler
 from feature_ranking_recurrence import panel_order, summarize
 
 class RankingTests(unittest.TestCase):
+    def test_stable_ties_cross_fifth_and_twentieth_in_both_panels(self):
+        # Nonalphabetic ordered names ensure tie breaking follows configuration, not name.
+        features = [f'f{30-i}' for i in range(27)]
+        for panel, values in [('uncertainty', [4.,3.,2.,1.] + [0.]*20 + [-1.,-2.,-3.]),
+                              ('low_score', [1.,2.,3.,4.] + [5.]*20 + [6.,7.,8.])]:
+            order = panel_order(values, features, panel, 'stable').index.tolist()
+            self.assertEqual(order, features)
+            table, ranks = summarize(np.array([values]), [1], features, features,
+                                     np.arange(27), 'test', 'original', 'stable')
+            self.assertEqual(ranks.loc[(ranks.panel==panel)&ranks.top_five,'feature'].tolist(), features[:5])
+            self.assertEqual(ranks.loc[(ranks.panel==panel)&ranks.displayed,'feature'].tolist(), features[:20])
+            absent = table[(table.panel==panel)&(table.feature==features[20])].iloc[0]
+            self.assertEqual(absent.displayed_count,0)
+            self.assertTrue(np.isnan(absent.mean_displayed_rank))
+            self.assertEqual(absent.mean_full_eligible_rank,21)
+
+    def test_top_five_order_is_distinct_from_membership(self):
+        from experiments.feature_ranking_recurrence.analysis import compare_sequences
+        a = list('abcdefghijklmnopqrstuv')
+        b = a.copy(); b[0],b[1]=b[1],b[0]
+        comparison=compare_sequences(a,b)
+        self.assertFalse(comparison['top_five_membership_changed'])
+        self.assertTrue(comparison['top_five_order_changed'])
+        self.assertTrue(comparison['displayed_order_changed'])
+        b=a.copy();b[19],b[20]=b[20],b[19]
+        comparison=compare_sequences(a,b)
+        self.assertFalse(comparison['top_five_order_changed'])
+        self.assertTrue(comparison['displayed_membership_changed'])
+
+    def test_identical_tie_rule_after_denominator_cap(self):
+        features=['last_name','first_name','middle_name','zero']
+        scores=np.array([4.,2.,2.,0.]);js=np.array([.1,.2,.2,0.]);eps=1e-12
+        factor=(js+eps)/(np.maximum(js,.3)+eps)
+        capped=scores*factor
+        self.assertEqual(panel_order(capped,features,'uncertainty','stable').index.tolist()[1:3],features[1:3])
+        self.assertEqual(panel_order(capped,features,'low_score','stable').index.tolist()[:2],features[1:3])
+        np.testing.assert_array_equal(np.sign(capped),np.sign(scores))
+
     def test_signed_order_and_strict_positive_eligibility(self):
         features = ['negative', 'zero', 'small', 'large']
         values = [-100, 0, .2, 5]

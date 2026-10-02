@@ -1,0 +1,197 @@
+{
+  "definitions": [
+    {
+      "scenario": "p01",
+      "family": "original_exploratory",
+      "tau_bits": 1e-12,
+      "affected_features": [],
+      "affected_count": 0,
+      "effective_denominator_perturbation": false,
+      "exploratory": true
+    },
+    {
+      "scenario": "p05",
+      "family": "original_exploratory",
+      "tau_bits": 0.0033597517211004123,
+      "affected_features": [
+        "Radiation",
+        "Fatigue",
+        "\u00c7arp\u0131nt\u0131"
+      ],
+      "affected_count": 3,
+      "effective_denominator_perturbation": true,
+      "exploratory": true
+    },
+    {
+      "scenario": "p10",
+      "family": "original_exploratory",
+      "tau_bits": 0.00635819367814629,
+      "affected_features": [
+        "Radiation",
+        "Fatigue",
+        "\u00c7arp\u0131nt\u0131"
+      ],
+      "affected_count": 3,
+      "effective_denominator_perturbation": true,
+      "exploratory": true
+    },
+    {
+      "scenario": "supp_p01",
+      "family": "supplementary_unfloored_nonconstant",
+      "tau_bits": 0.004276922202079152,
+      "affected_features": [
+        "Radiation",
+        "Fatigue",
+        "\u00c7arp\u0131nt\u0131"
+      ],
+      "affected_count": 3,
+      "effective_denominator_perturbation": true,
+      "exploratory": true
+    },
+    {
+      "scenario": "supp_p05",
+      "family": "supplementary_unfloored_nonconstant",
+      "tau_bits": 0.00635819367814629,
+      "affected_features": [
+        "Radiation",
+        "Fatigue",
+        "\u00c7arp\u0131nt\u0131"
+      ],
+      "affected_count": 3,
+      "effective_denominator_perturbation": true,
+      "exploratory": true
+    },
+    {
+      "scenario": "supp_p10",
+      "family": "supplementary_unfloored_nonconstant",
+      "tau_bits": 0.010293915507774379,
+      "affected_features": [
+        "KBY",
+        "KOAH",
+        "Radiation",
+        "Back Pain",
+        "Epigastric Pain",
+        "Fatigue",
+        "\u00c7arp\u0131nt\u0131"
+      ],
+      "affected_count": 7,
+      "effective_denominator_perturbation": true,
+      "exploratory": true
+    },
+    {
+      "scenario": "supp_p20",
+      "family": "supplementary_unfloored_nonconstant",
+      "tau_bits": 0.01954493722940956,
+      "affected_features": [
+        "SEX",
+        "HL",
+        "FH",
+        "KBY",
+        "KOAH",
+        "Radiation",
+        "Arm Pain",
+        "Back Pain",
+        "Epigastric Pain",
+        "Fatigue",
+        "\u00c7arp\u0131nt\u0131"
+      ],
+      "affected_count": 11,
+      "effective_denominator_perturbation": true,
+      "exploratory": true
+    },
+    {
+      "scenario": "supp_p25",
+      "family": "supplementary_unfloored_nonconstant",
+      "tau_bits": 0.02071488082849471,
+      "affected_features": [
+        "SEX",
+        "HL",
+        "FH",
+        "KBY",
+        "KOAH",
+        "Radiation",
+        "Arm Pain",
+        "Back Pain",
+        "Epigastric Pain",
+        "Fatigue",
+        "\u00c7arp\u0131nt\u0131"
+      ],
+      "affected_count": 11,
+      "effective_denominator_perturbation": true,
+      "exploratory": true
+    }
+  ],
+  "supplementary_percentile_grid": [
+    1,
+    5,
+    10,
+    20,
+    25
+  ],
+  "supplementary_included_features": [
+    "AGE",
+    "SEX",
+    "DM",
+    "HT",
+    "HL",
+    "FH",
+    "SIGARA",
+    "KBY",
+    "PRIOR_KAH",
+    "KOAH",
+    "Chest Pain",
+    "Chest Pain Character",
+    "Any Previous Pain Attacks",
+    "Chest Pain Duration(saat)",
+    "Arm Pain",
+    "Back Pain",
+    "Epigastric Pain",
+    "Relation with exercise",
+    "Relation with Position",
+    "Dyspnea",
+    "Nausea",
+    "\u00c7arp\u0131nt\u0131",
+    "Recent Infection(4 hafta)",
+    "TROP_KATSAYISI",
+    "CK-MB",
+    "GLUKOZ",
+    "WBCpik",
+    "NEUpik",
+    "LYMPpik",
+    "EOSpik",
+    "MONOpik",
+    "HB",
+    "HTC",
+    "PLT",
+    "KREATIN",
+    "AST",
+    "ALT",
+    "TOTAL_KOLESTEROL",
+    "TG",
+    "LDL",
+    "HDL",
+    "hs-CRP_KATSAYISI"
+  ],
+  "supplementary_exclusions": [
+    {
+      "feature": "Radiation",
+      "reasons": [
+        "constant across reference patients",
+        "unfloored DJS is not strictly positive"
+      ],
+      "unfloored_djs": 0.0
+    },
+    {
+      "feature": "Fatigue",
+      "reasons": [
+        "constant across reference patients",
+        "unfloored DJS is not strictly positive"
+      ],
+      "unfloored_djs": 0.0
+    }
+  ],
+  "supplementary_method": "linear percentiles of positive unfloored DJS from nonconstant reference features; cap still uses original stored DJS and epsilon",
+  "units": "bits, log2",
+  "original_epsilon": 1e-12,
+  "timing": "Saved before calculating capped patient results. All percentile thresholds exploratory."
+}
