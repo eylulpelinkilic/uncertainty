@@ -1,0 +1,11 @@
+patient_id,claimed_workbook_row,all_selected_values_match_with_rounding_tolerance
+1,2,True
+2,5,True
+3,7,True
+4,12,True
+5,9,True
+6,87,True
+7,86,True
+8,90,True
+9,83,True
+10,92,True
