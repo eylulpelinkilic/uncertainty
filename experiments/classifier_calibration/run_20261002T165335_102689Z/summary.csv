@@ -1,0 +1,3 @@
+configuration,status,patients,features,myocarditis_patients,acs_patients,brier_score,accuracy,mean_predicted_class_confidence,mean_predicted_myocarditis,observed_myocarditis,evaluation,descriptive_ece_5_bins,descriptive_ece_10_bins
+noECG,complete,160.0,44.0,63.0,97.0,0.061123443760390694,0.94375,0.8288525685798778,0.4075581828387861,0.39375,LOOCV of fixed previously selected specification; not fully nested selection evaluation,0.11291348227325874,0.11807229338757431
+withECG,unavailable: verified 54-feature LR+SVC+KNN pipeline missing,,,,,,,,,,,,

@@ -1,0 +1,25 @@
+source_row,reason,missing_columns
+0,missing/unparseable required feature or label,TOTAL_KOLESTEROL | TG | LDL | HDL
+1,missing/unparseable required feature or label,TOTAL_KOLESTEROL | TG | LDL | HDL
+8,missing/unparseable required feature or label,TOTAL_KOLESTEROL | TG | LDL | HDL
+10,missing/unparseable required feature or label,TOTAL_KOLESTEROL | TG | LDL | HDL
+16,missing/unparseable required feature or label,TOTAL_KOLESTEROL | TG | LDL | HDL
+18,missing/unparseable required feature or label,Back Pain
+26,missing/unparseable required feature or label,TOTAL_KOLESTEROL | TG | LDL | HDL
+32,missing/unparseable required feature or label,hs-CRP_KATSAYISI
+33,missing/unparseable required feature or label,hs-CRP_KATSAYISI
+34,missing/unparseable required feature or label,hs-CRP_KATSAYISI
+35,missing/unparseable required feature or label,hs-CRP_KATSAYISI
+36,missing/unparseable required feature or label,hs-CRP_KATSAYISI
+37,missing/unparseable required feature or label,LDL | hs-CRP_KATSAYISI
+38,missing/unparseable required feature or label,TOTAL_KOLESTEROL | TG | LDL | HDL | hs-CRP_KATSAYISI
+49,missing/unparseable required feature or label,CK-MB | TOTAL_KOLESTEROL | TG | LDL | HDL
+57,missing/unparseable required feature or label,DM | HT | HL | FH | SIGARA | KBY | PRIOR_KAH | KOAH | Chest Pain | Chest Pain Character | Any Previous Pain Attacks | Chest Pain Duration(saat) | Radiation | Arm Pain | Back Pain | Epigastric Pain | Relation with exercise | Relation with Position | Dyspnea | Fatigue | Nausea | Çarpıntı | Recent Infection(4 hafta) | TROP_KATSAYISI | CK-MB | GLUKOZ | WBCpik | NEUpik | LYMPpik | EOSpik | MONOpik | HB | HTC | PLT | KREATIN | AST | ALT | TOTAL_KOLESTEROL | TG | LDL | HDL | hs-CRP_KATSAYISI
+60,missing/unparseable required feature or label,TOTAL_KOLESTEROL | TG | LDL | HDL
+65,missing/unparseable required feature or label,TOTAL_KOLESTEROL | TG | LDL | HDL
+69,missing/unparseable required feature or label,TOTAL_KOLESTEROL | TG | LDL | HDL
+75,missing/unparseable required feature or label,LDL
+145,missing/unparseable required feature or label,TOTAL_KOLESTEROL | TG | LDL | HDL
+146,missing/unparseable required feature or label,hs-CRP_KATSAYISI
+171,missing/unparseable required feature or label,TOTAL_KOLESTEROL | TG | LDL | HDL
+173,missing/unparseable required feature or label,TOTAL_KOLESTEROL | TG | LDL | HDL

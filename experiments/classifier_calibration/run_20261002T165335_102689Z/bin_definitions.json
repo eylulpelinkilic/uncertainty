@@ -1,0 +1,7 @@
+{
+  "primary": 5,
+  "sensitivity": 10,
+  "edges": "equal width [0,1]",
+  "intervals": "[lower,upper), final includes 1",
+  "empty_bins": "count 0; mean and observed rate missing"
+}

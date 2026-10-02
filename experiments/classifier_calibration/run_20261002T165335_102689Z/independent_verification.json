@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "source": "saved Excel workbook and matching CSV predictions",
+  "configurations": [
+    {
+      "configuration": "noECG",
+      "patients": 160,
+      "brier_independently_recomputed": 0.06112344376039068,
+      "bins_checked": 30,
+      "fold_exclusion_checks": 160
+    }
+  ],
+  "checks": "unique complete eligible patients; source labels; per-fold class mappings and training exclusion; probability simplex; single binary squared error; direct-interval bin recalculation"
+}
