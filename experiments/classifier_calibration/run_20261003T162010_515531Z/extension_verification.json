@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "source_commit": "25a4992135c9b193e4c360874ddf8e362d5f0a87",
+  "exact_feature_order_verified": true,
+  "transformer_byte_compatibility_verified": true,
+  "independently_reconstructed_complete_cases": 158,
+  "fold_source_commit_checks": 158,
+  "previous_noECG_probabilities_and_contributions_reproduced": true,
+  "previous_noECG_run": "/Users/eylul/Desktop/uncertainty/experiments/classifier_calibration/run_20261002T165335_102689Z",
+  "protected_files_unchanged": 453,
+  "warnings": {
+    "Unknown solver options: iprint": 158
+  },
+  "warning_note": "The recorded Unknown solver options: iprint warning concerns a legacy verbosity option in sklearn/SciPy; saved solver and hyperparameters were retained. No convergence warning was recorded."
+}

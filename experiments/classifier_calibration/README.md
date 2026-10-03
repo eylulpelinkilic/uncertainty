@@ -35,13 +35,23 @@ The app loads the saved 44-feature no-ECG pipeline: UncertaintyTransformer → S
 
 The notebook's LOOCV code computes transient probabilities but does not export patient-level probabilities with identities and verifiable fold exclusion. `prediction_search.json` records candidate artifacts and the decision to generate fresh predictions.
 
-No verified 54-feature with-ECG LR+SVC+KNN pipeline, its metadata, or original selection code was found. That analysis is explicitly unavailable; its 158-patient cohort cannot be verified from a manuscript description alone. The workbook has a `predictions_withECG` status sheet, without invented patient rows or metrics. If a trusted complete fitted pipeline and its appropriate workbook become available, run:
+The 54-feature configuration is now available from [EKG-uncertainty at commit 25a4992135c9b193e4c360874ddf8e362d5f0a87](https://github.com/eylulpelinkilic/EKG-uncertainty/tree/25a4992135c9b193e4c360874ddf8e362d5f0a87). Its exact ordered list is the original 44 features followed by three echocardiographic and seven ECG variables. The echo variables are `EF`, `Segmentary Wall Motion Abnormality`, and `Pericardial Effusion`. The ECG variables are `ECG_ST depression`, `ECG_Location of ST depression ` (trailing space retained), `Level of ST-Dep_mm`, `ECG_T neg`, `ECG_Location of T negativity`, `Level of T invertion_mm`, and `ECG_Q waves`.
+
+The pinned pipeline uses equal soft voting over LR + SVC + KNN. The source verifier checks the exact checkout commit and clean worktree; metadata, notebook, fitted transformer and constructor feature order; transformer/utility byte compatibility; diagnostic class mapping; original transformer settings; and saved training statistics/scaler mean against the original workbook using the pinned split. The actual complete-case count is 158 (61 myocarditis, 97 ACS), with 126 cases in the saved training subset. These counts are computed, not imposed. The 44-feature cohort has 160 cases (63 myocarditis, 97 ACS).
+
+To reproduce both configurations with fresh fold fits in a new output directory:
 
 ```sh
-python experiments/classifier_calibration/calibration.py \
-  --with-ecg-model /absolute/path/with_ecg_pipeline.pkl \
-  --with-ecg-data /absolute/path/source_workbook.xlsx
+git clone https://github.com/eylulpelinkilic/EKG-uncertainty.git /tmp/calibration-EKG-source-25a4992
+git -C /tmp/calibration-EKG-source-25a4992 checkout --detach 25a4992135c9b193e4c360874ddf8e362d5f0a87
+MPLCONFIGDIR=/tmp/classifier-calibration-mpl PYTHONDONTWRITEBYTECODE=1 \
+  /tmp/classifier-calibration-env/bin/python experiments/classifier_calibration/calibration.py \
+  --with-ecg-source-repo /tmp/calibration-EKG-source-25a4992
 ```
+
+Use a new clone destination if it already exists. The execution environment can be installed from this experiment's requirements; the recorded six package versions can be replayed with `experiments/feature_ranking_recurrence/requirements-replay.txt`. The original 44-feature run remains unchanged. The new run contains both prediction sheets, source commit/fold evidence, independent checks, and unmodified copies of the pinned model, metadata, split, transformer/utilities and selection notebook in `source_artifacts/`. All tracked EKG source files and all prior calibration runs are hash-checked at completion. The former missing-pipeline status remains accurate for its original historical run and is not edited retroactively.
+
+The standalone `--with-ecg-model` / `--with-ecg-data` options remain available, but a standalone pipeline without repository metadata is a weaker provenance path; the pinned-repository option is used for the new analysis.
 
 `--data` can specify an alternate no-ECG workbook. The two configurations are separate modeling pipelines; they are not a controlled ECG-only ablation. Current interface loading is verifiable from present files. Historical clinician-session artifact/configuration identity remains unverified.
 
@@ -80,3 +90,13 @@ PYTHONDONTWRITEBYTECODE=1 /tmp/feature-ranking-env/bin/python \
 ```
 
 Tests cover reversed probability-column mappings, the single binary squared error, exact bin boundaries and probability 1, empty-bin missing rates, invalid probability simplexes, and held-out exclusion/duplicate identities. The separate verification script reads exported Excel/CSV data and independently recomputes Brier scores and bin statistics with direct interval masks, checks source labels, each patient's unique OOF prediction, complete training identity sets, and per-fold class mappings. The program also checks freshly cloned preprocessing and the scaler's fitted sample count in every fold.
+
+For the pinned extension, independently verify archived metadata/order, complete-case reconstruction, every fold's source commit and exclusion, the preserved 44-feature replay, and all protected hashes:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 /tmp/classifier-calibration-env/bin/python \
+  experiments/classifier_calibration/verify_extension.py \
+  experiments/classifier_calibration/run_20261003T162010_515531Z
+```
+
+The resulting `extension_verification.json` also summarizes captured fit warnings. All 158 with-ECG folds recorded `Unknown solver options: iprint`, a legacy verbosity option passed by sklearn to the installed SciPy optimizer. The saved solver and hyperparameters were retained; no convergence warning was recorded. Historical probabilities may differ with software versions, so the actual versions remain part of the experiment provenance.
